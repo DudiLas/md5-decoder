@@ -18,14 +18,3 @@ class md5_worker():
 
 
 
-
-if __name__ == "__main__":
-    st = str(random.randint(0,100000))
-    print("str to decode: ", st)
-    worker = md5_worker()
-    data_to_decrypt = worker.encode(st)
-
-    print("decoded string: ", worker.decode(data_to_decrypt, len(st)))
-
-
-

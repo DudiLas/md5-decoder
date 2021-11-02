@@ -1,6 +1,9 @@
 import threading
 import socket
 import multiprocessing
+
+import basic_decryptor
+
 MAX_LEN = 128
 
 
@@ -13,30 +16,38 @@ class Client:
         self.start = int(data_l[0])
         self.end = int(data_l[1])
 
+        self.enc_data = self.client.recv(MAX_LEN).decode()
+
 
     def defineJmp(self):
         cpu_num = multiprocessing.cpu_count()
         self.jmp = (self.end - self.start)//cpu_num
 
     def Calculate(self):
-        t = threading.Thread(target = )
+        calc = Handle_Calc(self.start, self.enc_data)
+        cur = self.start
+        thrd_list = []
+        while cur < self.end:
+            t = threading.Thread(target = Handle_Calc.nextCalc, args = (calc, cur, self.jmp,))
+            thrd_list.append(t)
+            t.start()
+
 
 
 
 class Handle_Calc:
     def __init__(self,start):
         self.current = start
-    def nextCalc(self, jmp):
-        pass
+    def nextCalc(self, start, jmp):
+        for num in range(start, start + jmp):
+            st = str(num)
+            worker = basic_decryptor.md5_worker()
+            dec = worker.encode(st)
+            if dec =
 
 
 
 
-
-
-
-    def calc(client):
-        pass
 
 def main():
     client = Client("127.0.0.1", 8080)
